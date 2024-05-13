@@ -36,10 +36,10 @@
 
 
 // plugin information
-#define GAMEME_PLUGIN_VERSION "5.0.0"
+#define GAMEME_PLUGIN_VERSION "5.0.1"
 public Plugin:myinfo = {
 	name = "gameME Plugin",
-	author = "TTS Oetzel & Goerz GmbH",
+	author = "TTS Oetzel & Goerz GmbH, Adrianilloo",
 	description = "gameME Plugin",
 	version = GAMEME_PLUGIN_VERSION,
 	url = "http://www.gameme.com"
