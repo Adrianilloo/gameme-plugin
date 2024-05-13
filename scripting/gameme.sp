@@ -6098,47 +6098,50 @@ public OnHL2MPTakeDamage(victim, attacker, inflictor, Float:damage, damagetype)
 				weapon_index = HL2MP_CROSSBOW;
 			}
 		}
+
 		if (weapon_index == -1) {
 			weapon_index = get_weapon_index(hl2mp_weapon_list, MAX_HL2MP_WEAPON_COUNT, weapon_str[7]);
 		}
 
-		new hitgroup = ((weapon_index == HL2MP_CROSSBOW) ? hl2mp_players[victim].nextbow_hitgroup : hl2mp_players[victim].next_hitgroup);
-		if ((hitgroup >= 0) && (hitgroup < 8)) {
-			switch (hitgroup) {
-				case HITGROUP_GENERIC:
-					player_weapons[attacker][weapon_index].wgeneric++;
-				case HITGROUP_HEAD:
-					player_weapons[attacker][weapon_index].whead++;
-				case HITGROUP_CHEST:
-					player_weapons[attacker][weapon_index].wchest++;
-				case HITGROUP_STOMACH:
-					player_weapons[attacker][weapon_index].wstomach++;
-				case HITGROUP_LEFTARM:
-					player_weapons[attacker][weapon_index].wleftarm++;
-				case HITGROUP_RIGHTARM:
-					player_weapons[attacker][weapon_index].wrightarm++;
-				case HITGROUP_LEFTLEG:
-					player_weapons[attacker][weapon_index].wleftleg++;
-				case HITGROUP_RIGHTLEG:
-					player_weapons[attacker][weapon_index].wrightleg++;
-			}
-		}
-
-		new bool: headshot = ((GetClientHealth(victim) <= 0) && (hitgroup == HITGROUP_HEAD));
 		if (weapon_index > -1) {
+			new hitgroup = ((weapon_index == HL2MP_CROSSBOW) ? hl2mp_players[victim].nextbow_hitgroup : hl2mp_players[victim].next_hitgroup);
+
+			if ((hitgroup >= 0) && (hitgroup < 8)) {
+				switch (hitgroup) {
+					case HITGROUP_GENERIC:
+						player_weapons[attacker][weapon_index].wgeneric++;
+					case HITGROUP_HEAD:
+						player_weapons[attacker][weapon_index].whead++;
+					case HITGROUP_CHEST:
+						player_weapons[attacker][weapon_index].wchest++;
+					case HITGROUP_STOMACH:
+						player_weapons[attacker][weapon_index].wstomach++;
+					case HITGROUP_LEFTARM:
+						player_weapons[attacker][weapon_index].wleftarm++;
+					case HITGROUP_RIGHTARM:
+						player_weapons[attacker][weapon_index].wrightarm++;
+					case HITGROUP_LEFTLEG:
+						player_weapons[attacker][weapon_index].wleftleg++;
+					case HITGROUP_RIGHTLEG:
+						player_weapons[attacker][weapon_index].wrightleg++;
+				}
+			}
+
 			player_weapons[attacker][weapon_index].whits++;
 			player_weapons[attacker][weapon_index].wdamage += RoundToNearest(damage);
+			new bool: headshot = ((GetClientHealth(victim) <= 0) && (hitgroup == HITGROUP_HEAD));
+
 			if (headshot) {
 				player_weapons[attacker][weapon_index].wheadshots++;
 			}
 		}
-		
+
 		if (weapon_index == HL2MP_CROSSBOW) {
 			hl2mp_players[victim].nextbow_hitgroup = 0;
 		} else {
 			hl2mp_players[victim].next_hitgroup = 0;
 		}
-		
+
 	}
 }
 
